@@ -21,14 +21,12 @@
 			<img src="logo.png" width="512" height="210" alt="Is it the future?" />
 			<p>
 				<?php
-				$future = mktime(0, 0, 0, 10, 21, 2015);
-				$today = mktime(0, 0, 0);
-				if ($future == $today) {
+				$future = new DateTime(date("Y-m-d", mktime(0, 0, 0, 10, 21, 2015)));
+				$today = new DateTime(date("Y-m-d", mktime(0, 0, 0)));
+				$interval = $today->diff($future);
+				if (intval($interval->format("%a")) == 0) {
 					echo "Yes, it is!";
 				} else {
-					$datetimeFuture = new DateTime(date("Y-m-d", $future));
-					$datetimeToday = new DateTime(date("Y-m-d", $today));
-					$interval = $datetimeToday->diff($datetimeFuture);
 					echo "Nope, you still have ".$interval->format("%a")." days to become a scientist/engineer and invent the stuff you are missing.\n";
 				}
 				?>
